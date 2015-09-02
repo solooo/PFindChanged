@@ -49,7 +49,7 @@ class my_window(QtWidgets.QMainWindow, Ui_MainWindow):
         # 获取文件
         rdf = RevisionDiffFile(zip_name, project_path, revision_min, revision_max)
         file_paths = rdf.get_diff_from_svn()
-        
+
         self.textBrowser.clear()
         for f in file_paths:
             self.textBrowser.append(str(type(f))+str(f))
