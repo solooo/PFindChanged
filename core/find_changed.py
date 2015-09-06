@@ -25,7 +25,7 @@ class RevisionDiffFile:
     def __init__(self, zip_name, local_dir, base_revision, update_revision):
         self.__zip_name = zip_name
         self.__zip_path = "updateFile\\" + zip_name + ".zip"
-        self.__local_dir = local_dir
+        self.__local_dir = local_dir + "/"
         self.__base_revision = base_revision
         self.__update_revision = update_revision
 
@@ -45,9 +45,10 @@ class RevisionDiffFile:
         diff_paths = []
         for changed in diff_file_list:
             path = changed['path']
-            # print(path)
+            # print("get_diff_from_svn: " + self.__local_dir + path)
             if os.path.isfile(self.__local_dir + path):
                 diff_paths.append(path)
+
         return list(map(lambda fn: self.process_src_path(fn), diff_paths))
 
     # 处理非webapp路径下文件修改为webapp路径，同时将.java修改为.class结尾
@@ -55,7 +56,7 @@ class RevisionDiffFile:
         __webapp_path_regex = r"(?<=src/main/)[a-zA-Z]*(?=/.*)"
         suffix_regex = r".java$"
         folder_name = re.findall(__webapp_path_regex, path)[0]
-        # print(folder_name == "webapp")
+
         # 非webapp目录下的文件将路径替换为webapp/WEB-INF/classes/
         if folder_name != "webapp":
             path = re.sub(__webapp_path_regex, "webapp/WEB-INF/classes", path)
@@ -82,6 +83,6 @@ class RevisionDiffFile:
 
 if __name__ == "__main__":
     temp_local_dir = "E:/workspace/xzsp_jinghe/"
-    rdf = RevisionDiffFile("#1234", temp_local_dir, 62281, 0)
+    rdf = RevisionDiffFile("#1234", temp_local_dir, 61011, 62281)
     num = rdf.find_changed()
     print("打包完成，共%s个文件" % num)

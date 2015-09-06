@@ -46,18 +46,23 @@ class my_window(QtWidgets.QMainWindow, Ui_MainWindow):
         revision_max = self.revision_max.text()
         revision_min = revision_min if revision_min.strip() else "0"
         revision_max = revision_max if revision_max.strip() else "0"
+
+        print(zip_name, project_path, revision_min, revision_max)
+
         # 获取文件
-        rdf = RevisionDiffFile(zip_name, project_path, revision_min, revision_max)
+        rdf = RevisionDiffFile(zip_name, project_path, int(revision_min), int(revision_max))
         file_paths = rdf.get_diff_from_svn()
 
         self.textBrowser.clear()
-        for f in file_paths:
-            self.textBrowser.append(str(type(f))+str(f))
+        for index, item in enumerate(file_paths):
+            self.textBrowser.append(str(index+1) + "、" + str(item))
 
-        info = "打包完成，共" + len(file_paths) + "个文件"
-        self.file_info.setText(info)
+        info = "打包完成，共" + str(len(file_paths)) + "个文件"
+
         # 打包
         rdf.zip_files(file_paths)
+
+        self.file_info.setText(info)
         QtWidgets.QMessageBox.information(self, "提示", info)
 
 if __name__ == '__main__':
