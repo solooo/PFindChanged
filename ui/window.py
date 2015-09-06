@@ -3,8 +3,6 @@
 # Create Time: '2015/9/2 20:57'
 __author__ = 'Eric'
 
-# -*- coding: utf-8 -*-
-
 # Form implementation generated from reading ui file 'FindFile.ui'
 #
 # Created by: PyQt5 UI code generator 5.4.2
@@ -13,10 +11,14 @@ __author__ = 'Eric'
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(551, 397)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("image/search_48px.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
