@@ -48,22 +48,26 @@ class my_window(QtWidgets.QMainWindow, Ui_MainWindow):
         revision_max = revision_max if revision_max.strip() else "0"
 
         # print(zip_name, project_path, revision_min, revision_max)
+        if(not zip_name.strip()
+           or not project_path.strip()
+           or revision_min == "0"):
+            QtWidgets.QMessageBox.information(self, "提示", "打包文件名、项目路径、基础版本必须填写完整！")
+        else:
+            # 获取文件
+            rdf = RevisionDiffFile(zip_name, project_path, int(revision_min), int(revision_max))
+            file_paths = rdf.get_diff_from_svn()
 
-        # 获取文件
-        rdf = RevisionDiffFile(zip_name, project_path, int(revision_min), int(revision_max))
-        file_paths = rdf.get_diff_from_svn()
+            self.textBrowser.clear()
+            for index, item in enumerate(file_paths):
+                self.textBrowser.append(str(index+1) + "、" + str(item))
 
-        self.textBrowser.clear()
-        for index, item in enumerate(file_paths):
-            self.textBrowser.append(str(index+1) + "、" + str(item))
+            info = "打包完成，共" + str(len(file_paths)) + "个文件"
 
-        info = "打包完成，共" + str(len(file_paths)) + "个文件"
+            # 打包
+            rdf.zip_files(file_paths)
 
-        # 打包
-        rdf.zip_files(file_paths)
-
-        self.file_info.setText(info)
-        QtWidgets.QMessageBox.information(self, "提示", info)
+            self.file_info.setText(info)
+            QtWidgets.QMessageBox.information(self, "提示", info)
 
 if __name__ == '__main__':
     import sys
