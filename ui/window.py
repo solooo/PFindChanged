@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "FindFile"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "PFindChanged v2.0"))
         self.label_3.setText(_translate("MainWindow", "项目路径"))
         self.label.setText(_translate("MainWindow", "打包文件名"))
         self.compress_btn.setToolTip(_translate("MainWindow", "<html><head/><body><p>查找文件并打包</p></body></html>"))

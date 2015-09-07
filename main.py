@@ -47,7 +47,7 @@ class my_window(QtWidgets.QMainWindow, Ui_MainWindow):
         revision_min = revision_min if revision_min.strip() else "0"
         revision_max = revision_max if revision_max.strip() else "0"
 
-        print(zip_name, project_path, revision_min, revision_max)
+        # print(zip_name, project_path, revision_min, revision_max)
 
         # 获取文件
         rdf = RevisionDiffFile(zip_name, project_path, int(revision_min), int(revision_max))
